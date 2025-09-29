@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavárna Limone – O nás</title>
+
+    <meta name="description" content="Příběh rodinné kavárny Limone – naše tradice, vášeň pro kávu a láska k italskému stylu. Seznamte se s námi.">
+    <meta name="keywords" content="kavárna, káva, zákusky, Limone, espresso, cappuccino">
+    <meta name="author" content="Kavárna Limone">
+    <meta name="theme-color" content="#FFD966">
+
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+    <!-- Vývoj -->
+    <!--link rel="stylesheet" href="css/style.css"-->
+    <!-- Produkce -->
+    <link rel="stylesheet" href="css/style.min.css">
+
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <nav class="main-nav">
+            <div class="logo-container">
+                <span>Caffè Limone</span>
+                <img src="images/logo-removebg-preview.png" alt="Logo kavárny">
+            </div>
+            <button class="nav-toggle" aria-label="Otevřít menu">
+                &#9776; <!-- hamburger -->
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Domů</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">O nás</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <main>
+        <section class="about">
+            <h2>O nás – Příběh Caffè Limone</h2>
+            <img src="images/Gemini_Generated_Image_m2eud2m2eud2m2eu.webp" alt="Naše kavárna" class="about-img right"
+                onclick="openLightbox(this)" loading="lazy">
+
+            <!-- lightbox overlay -->
+            <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+                <img id="lightbox-img" src="images/Gemini_Generated_Image_m2eud2m2eud2m2eu.webp" alt="Kavárna foto"
+                    loading="lazy">
+            </div>
+
+            <p>V srdci Brna, na rušné ulici, kde se mísí historie s moderním životem, se zrodilo Caffè Limone. Není to
+                jen tak ledajaká kavárna; je to místo, kde se setkává vášeň pro italskou kávu, láska k čerstvým chutím a
+                touha přenést kousek slunce a pohody z Gardského jezera přímo k vám.</p>
+            <h3>Sen o Gardském jezeře v Brně</h3>
+            <p>Náš příběh začal v roce 2020, kdy se zakladatelé Caffè Limone, inspirováni nespočetnými cestami po
+                severní Itálii a okouzleni malebným městečkem Limone sul Garda, rozhodli přenést tuto atmosféru do Brna.
+                Představovali si místo, kde si lidé mohou vychutnat dokonalé espresso, dopřát si lahodné mandlové pečivo
+                a na chvíli uniknout shonu všedního dne. Místo, kde se každá návštěva stane malou dovolenou.</p>
+            <h3>Naše filosofie: kvalita a autenticita</h3>
+            <p>V Caffè Limone věříme, že nejlepší zážitky se rodí z těch nejlepších ingrediencí. Pečlivě vybíráme zrnka
+                kávy od malých italských pražíren, které ctí tradiční metody a zaručují nezaměnitelnou chuť. Naše
+                zákusky pečeme podle rodinných receptů, s láskou a z čerstvých surovin. Každý šálek kávy, každý zákusek
+                a každý úsměv je pro nás vyjádřením naší vášně.</p>
+            <img src="images/Caffe_winter.webp" alt="Naše kavárna" class="about-img left" onclick="openLightbox(this)"
+                loading="lazy">
+            <h3>Cesta za Limoncello a citrony: Každý měsíc z Gardského jezera</h3>
+            <p>To, co dělá Caffè Limone skutečně jedinečným, je naše spojení s Gardským jezerem. Chápeme, že pravá chuť
+                Itálie pochází přímo od zdroje. Proto se jednou měsíčně vydáváme na vzrušující cestu do Limone sul
+                Garda, které je proslulé svými citronovými sady a jedinečným mikroklimatem. Náš tým osobně vybírá ty
+                nejšťavnatější citrony, které jsou základem pro naše domácí limonády a limoncello.
+
+                <br>Představte si to: Jednoho slunného rána, obvykle první víkend v měsíci, se před naší kavárnou objeví
+                ikonické italské tříkolové vozítko Ape Piaggio. Není to jen vozidlo, je to symbol naší oddanosti
+                čerstvosti. Naložené bednami zářivého ovoce, bylinek a dalších regionálních pokladů, přináší naši
+                "Fresca di Garda!" – čerstvost přímo z Gardského jezera. Srdečně vás zveme, abyste se k nám připojili a
+                ochutnali to nejlepší, co tato oblast nabízí, a to přímo z vozítka! Je to skvělá příležitost probrat si
+                s námi nejnovější úlovky a načerpat kousek severoitalské atmosféry.
+            </p>
+            <h3>Rodina Caffè Limone</h3>
+            <p>Jsme malý tým s velkým srdcem a obrovskou láskou k tomu, co děláme. Každý člen naší rodiny Caffè Limone
+                je tu, aby vám zajistil ten nejlepší zážitek. Těšíme se na vaši návštěvu a na to, že se s vámi podělíme
+                o kousek naší italské vášně!</p>
+            <img src="images/family.webp" alt="Naše rodina" class="about-family" onclick="openLightbox(this)"
+                loading="lazy">
+        </section>
+    </main>
+
+    <button id="scrollTopBtn" title="Nahoru">&#8679;</button>
+
+    <footer>
+        <p>&copy; 2025 Kavárna Limone</p>
+    </footer>
+</body>
+
+</html>

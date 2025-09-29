@@ -1,0 +1,37 @@
+[
+  {
+    "kategorie": "Káva",
+    "polozky": [
+      { "nazev": "Espresso", "cena": "55 Kč", "popis": "klasické espresso" },
+      { "nazev": "Cappuccino", "cena": "65 Kč", "popis": "espresso s vyšlehaným mlékem" },
+      { "nazev": "Latte Macchiato", "cena": "80 Kč", "popis": "espresso s vyšlehaným mlékem"},
+      { "nazev": "Flat White", "cena": "75 Kč","popis": "dvojité espresso s vyšlehaným mlékem" }
+    ]
+  },
+  {
+    "kategorie": "Čaj",
+    "polozky": [
+      { "nazev": "Zelený čaj", "cena": "50 Kč" },
+      { "nazev": "Černý čaj", "cena": "50 Kč" },
+      { "nazev": "Bylinný čaj", "cena": "55 Kč" }
+    ]
+  },
+  {
+    "kategorie": "Sladké",
+    "polozky": [
+      { "nazev": "Tiramisu", "cena": "85 Kč" },
+      { "nazev": "Citronový koláč", "cena": "75 Kč" },
+      { "nazev": "Panna Cotta", "cena": "80 Kč" },
+      { "nazev": "Čokoládový dort", "cena": "90 Kč" }
+    ]
+  },
+  {
+    "kategorie": "Slané",
+    "polozky": [
+      { "nazev": "Bruschetta s rajčaty", "cena": "95 Kč" },
+      { "nazev": "Prosciutto a mozzarella", "cena": "110 Kč" },
+      { "nazev": "Caprese špíz", "cena": "100 Kč" },
+      { "nazev": "Týdenní polévka - hrachová", "cena": "65 Kč" }
+    ]
+  }
+]

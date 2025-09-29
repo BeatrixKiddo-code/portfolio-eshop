@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavárna Limone – Kontakt</title>
+
+    <meta name="description" content="Najděte nás v centru města, rezervujte si stůl nebo nás kontaktujte telefonicky či e-mailem.">
+    <meta name="keywords" content="kavárna, káva, zákusky, Limone, espresso, cappuccino">
+    <meta name="author" content="Kavárna Limone">
+    <meta name="theme-color" content="#FFD966">
+
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+    <!-- Vývoj -->
+    <!--link rel="stylesheet" href="css/style.css"-->
+    <!-- Produkce -->
+    <link rel="stylesheet" href="css/style.min.css">
+
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <nav class="main-nav">
+            <div class="logo-container">
+                <span>Caffè Limone</span>
+                <img src="images/logo-removebg-preview.png" alt="Logo kavárny">
+            </div>
+            <button class="nav-toggle" aria-label="Otevřít menu">
+                &#9776; <!-- hamburger -->
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Domů</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">O nás</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <main>
+        <section class="contact-top-section">
+            <div class="contact-left">
+                <h2>Kontakt</h2>
+                <div class="contact-address">
+                    <p>Adresa: Ulice 123, Brno<br>
+                        Telefon: +420 123 456 789<br>
+                        Email: info@kavarnalimone.cz</p>
+                </div>
+
+                <h2>Otevírací doba</h2>
+                <ul class="opening-hours">
+                    <li><span>Pondělí – Pátek:</span> 8:00 – 18:00</li>
+                    <li><span>Sobota:</span> 9:00 – 15:00</li>
+                    <li><span>Neděle:</span> Zavřeno</li>
+                </ul>
+            </div>
+
+            <div class="contact-right">
+                <img src="images/kavarna_team.webp" alt="Kavárna Limone">
+                <img src="images/interiér.webp" alt="Interiér" class="second-image">
+            </div>
+        </section>
+
+        <section class="map">
+            <h2>Kde nás najdete</h2>
+            <iframe src="https://maps.google.com/maps?q=Brno&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%"
+                height="300" style="border:0;" allowfullscreen="">
+            </iframe>
+        </section>
+
+        <section class="reservation">
+            <h2>Rezervace stolu</h2>
+            <form>
+                <label>Jméno:<br><input type="text" required></label>
+                <label>Email:<br><input type="email" required></label>
+                <label>Datum:<br><input type="date" id="res-date" required></label>
+                <label>Čas:<br><input type="time" required></label>
+                <label>Počet osob:<br><input type="number" min="1" max="10" required></label>
+                <button type="submit">Rezervovat</button>
+            </form>
+        </section>
+    </main>
+
+    <button id="scrollTopBtn" title="Nahoru">&#8679;</button>
+
+    <footer>
+        <p>&copy; 2025 Kavárna Limone</p>
+    </footer>
+</body>
