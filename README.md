@@ -27,3 +27,5 @@ Web je připravený k nasazení na hosting, např.:
 - [GitHub Pages](https://pages.github.com/)
 
 ## 📷 Náhled
+<img width="1835" height="1506" alt="image" src="https://github.com/user-attachments/assets/ac5ce518-29f6-4c81-8ae8-ab087b419382" />
+
