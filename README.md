@@ -23,7 +23,8 @@ Projekt obsahuje tyto podstránky:
 
 ## Nasazení
 Web je nasazen na:
-- [Netlify]([https://www.netlify.com/](https://caffe-limone.netlify.app))
+- [Netlify][https://www.netlify.com/]
+https://caffe-limone.netlify.app
 
 
 ## 📷 Náhled
