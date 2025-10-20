@@ -22,9 +22,9 @@ Projekt obsahuje tyto podstránky:
 - **JavaScript**
 
 ## Nasazení
-Web je připravený k nasazení na hosting, např.:
-- [Netlify](https://www.netlify.com/)
-- [GitHub Pages](https://pages.github.com/)
+Web je nasazen na:
+- [Netlify]([https://www.netlify.com/](https://caffe-limone.netlify.app))
+
 
 ## 📷 Náhled
 <img width="1835" height="1506" alt="image" src="https://github.com/user-attachments/assets/ac5ce518-29f6-4c81-8ae8-ab087b419382" />
