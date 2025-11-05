@@ -1,3 +1,6 @@
+
+if (window.scriptLoaded) return;
+window.scriptLoaded = true;
 document.querySelector("form")?.addEventListener("submit", function(e) {
   e.preventDefault();
 
