@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "titulek": "Nová letní nabídka! 🍋",
+    "text": "Od června pro vás máme připravené osvěžující limonády a ledové kávy. Přijďte ochutnat!",
+    "datum": "2025-06-01"
+  },
+  {
+    "id": 2,
+    "titulek": "Změna otevírací doby",
+    "text": "O státním svátku 5. července budeme mít otevřeno pouze do 14:00.",
+    "datum": "2025-06-28"
+  },
+  {
+    "id": 3,
+    "titulek": "Degustace italských vín",
+    "text": "Přijďte v sobotu 15. června na degustaci vín z Toskánska. Vstup zdarma, rezervace nutná.",
+    "datum": "2025-06-10"
+  }
+]

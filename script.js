@@ -4,7 +4,7 @@ document.querySelector("form")?.addEventListener("submit", function(e) {
   const dateInput = document.getElementById("res-date");
   const selectedDate = new Date(dateInput.value);
   const today = new Date();
-  today.setHours(0,0,0,0); // ignoruje čas, porovnává jen datum
+  today.setHours(0,0,0,0);
 
   if (selectedDate < today) {
     alert("Vyberte prosím datum v dnešku nebo v budoucnu.");
@@ -17,7 +17,7 @@ document.querySelector("form")?.addEventListener("submit", function(e) {
 const features = document.querySelectorAll(".feature");
 
 function checkFeatures() {
-  const triggerBottom = window.innerHeight * 0.9; // kdy se spustí
+  const triggerBottom = window.innerHeight * 0.9;
 
   features.forEach(feature => {
     const featureTop = feature.getBoundingClientRect().top;
@@ -28,8 +28,6 @@ function checkFeatures() {
   });
 }
 
-
-// spustit při scrollu a na začátku
 window.addEventListener("scroll", checkFeatures);
 window.addEventListener("DOMContentLoaded", checkFeatures);
 
@@ -68,7 +66,6 @@ function closeLightbox() {
   document.getElementById("lightbox").style.display = "none";
 }
 
-// Zavření lightboxu pomocí klávesy Escape
 document.addEventListener("keydown", function(event) {
   if (event.key === "Escape") {
     closeLightbox();

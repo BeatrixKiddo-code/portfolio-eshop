@@ -16,9 +16,70 @@
     <!-- Vývoj -->
     <!--link rel="stylesheet" href="css/style.css"-->
     <!-- Produkce -->
-    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <script src="script.js" defer></script>
+
+    <style>
+        /* Styly pro sekci Aktuality */
+        .aktuality-section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .aktuality-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #5C3D2E;
+        }
+
+        .aktualita-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid #FFD966;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .aktualita-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+
+        .aktualita-card h3 {
+            color: #5C3D2E;
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+        }
+
+        .aktualita-card .datum {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .aktualita-card p {
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .no-aktuality {
+            text-align: center;
+            color: #888;
+            font-style: italic;
+            padding: 40px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #888;
+            padding: 40px;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,6 +104,14 @@
 
 
     <main>
+        <!-- SEKCE AKTUALITY -->
+        <section class="aktuality-section">
+            <h2>📰 Aktuality</h2>
+            <div id="aktuality-container">
+                <div class="loading">Načítám aktuality...</div>
+            </div>
+        </section>
+
         <section class="contact-top-section">
             <div class="contact-left">
                 <h2>Kontakt</h2>
@@ -91,4 +160,52 @@
     <footer>
         <p>&copy; 2025 Kavárna Limone</p>
     </footer>
+
+    <script>
+        /**
+         * Načte a zobrazí aktuality z API
+         */
+        async function loadAktuality() {
+            const container = document.getElementById('aktuality-container');
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/aktuality');
+                const aktuality = await response.json();
+                
+                if (aktuality.length === 0) {
+                    container.innerHTML = '<div class="no-aktuality">Žádné aktuality k zobrazení.</div>';
+                    return;
+                }
+                
+                // Vykreslíme aktuality
+                container.innerHTML = aktuality.map(aktualita => `
+                    <article class="aktualita-card">
+                        <h3>${aktualita.titulek}</h3>
+                        <div class="datum">${formatDatum(aktualita.datum)}</div>
+                        <p>${aktualita.text}</p>
+                    </article>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Chyba při načítání aktualit:', error);
+                container.innerHTML = '<div class="no-aktuality">Nepodařilo se načíst aktuality.</div>';
+            }
+        }
+        
+        /**
+         * Formátuje datum do českého formátu
+         */
+        function formatDatum(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('cs-CZ', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+        }
+        
+        // Načti aktuality při načtení stránky
+        document.addEventListener('DOMContentLoaded', loadAktuality);
+    </script>
 </body>
+</html>

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Kavárna Limone</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #FFD966;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .admin-header h1 {
+      margin: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-info {
+      color: #5C3D2E;
+      font-weight: 600;
+    }
+
+    .admin-section {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .admin-section h2 {
+      margin-top: 0;
+      color: #5C3D2E;
+      font-size: 1.4rem;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .form-row label {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .form-row.full label {
+      flex: 100%;
+    }
+
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .form-row textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-row input:focus,
+    .form-row select:focus,
+    .form-row textarea:focus {
+      border-color: #FFD966;
+      outline: none;
+      box-shadow: 0 0 5px rgba(255, 217, 102, 0.5);
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #5C3D2E;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #996c5a;
+    }
+
+    .btn-danger {
+      background: #dc3545;
+      color: white;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+    }
+
+    .btn-danger:hover {
+      background: #c82333;
+    }
+
+    .btn-edit {
+      background: #FFD966;
+      color: #5C3D2E;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+    }
+
+    .btn-edit:hover {
+      background: #ffc107;
+    }
+
+    .btn-logout {
+      background: transparent;
+      color: #dc3545;
+      border: 1px solid #dc3545;
+      padding: 8px 16px;
+    }
+
+    .btn-logout:hover {
+      background: #dc3545;
+      color: white;
+    }
+
+    .menu-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .menu-table th,
+    .menu-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    .menu-table th {
+      background: #FFF8E1;
+      color: #5C3D2E;
+      font-weight: bold;
+    }
+
+    .menu-table tr:hover {
+      background: #FFFDF6;
+    }
+
+    .kategorie-header {
+      background: #FFD966 !important;
+      font-weight: bold;
+    }
+
+    .akce-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .message {
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      display: block;
+    }
+
+    .message.error {
+      background: #f8d7da;
+      color: #721c24;
+      display: block;
+    }
+
+    .back-link {
+      color: #5C3D2E;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .admin-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 12px 24px;
+      border: 2px solid #FFD966;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #5C3D2E;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      background: #FFF8E1;
+    }
+
+    .tab-btn.active {
+      background: #FFD966;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .aktualita-admin-card {
+      background: #FFFDF6;
+      border: 1px solid #eee;
+      border-left: 4px solid #FFD966;
+      border-radius: 8px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+    }
+
+    .aktualita-admin-card h4 {
+      margin: 0 0 5px 0;
+      color: #5C3D2E;
+    }
+
+    .aktualita-admin-card .datum {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .aktualita-admin-card p {
+      margin: 0 0 15px 0;
+      color: #333;
+    }
+
+    .aktualita-admin-card .akce-btns {
+      justify-content: flex-end;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,253,246,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .loading-overlay.hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Loading overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div style="text-align: center;">
+      <div style="font-size: 3rem;">🍋</div>
+      <p>Načítání...</p>
+    </div>
+  </div>
+
+  <div class="admin-container">
+    
+    <div class="admin-header">
+      <h1>🍋 Admin Panel</h1>
+      <div class="header-actions">
+        <span class="user-info" id="userInfo"></span>
+        <a href="index.html" class="back-link">← Web</a>
+        <button class="btn btn-logout" onclick="logout()">Odhlásit</button>
+      </div>
+    </div>
+
+    <div id="message" class="message"></div>
+
+    <!-- TABS -->
+    <div class="admin-tabs">
+      <button class="tab-btn active" onclick="switchTab('menu')">🍽️ Menu</button>
+      <button class="tab-btn" onclick="switchTab('aktuality')">📰 Aktuality</button>
+      <button class="tab-btn" onclick="switchTab('nastaveni')">⚙️ Nastavení</button>
+    </div>
+
+    <!-- TAB: MENU -->
+    <div id="tab-menu" class="tab-content active">
+      <div class="admin-section">
+        <h2>➕ Přidat položku do menu</h2>
+        <form id="addItemForm">
+          <div class="form-row">
+            <label>
+              Kategorie:
+              <select id="kategorie" required></select>
+            </label>
+            <label>
+              Název:
+              <input type="text" id="nazev" placeholder="např. Lungo" required maxlength="100">
+            </label>
+          </div>
+          <div class="form-row">
+            <label>
+              Cena:
+              <input type="text" id="cena" placeholder="např. 60 Kč" required maxlength="20">
+            </label>
+            <label>
+              Popis (nepovinný):
+              <input type="text" id="popis" placeholder="např. prodloužené espresso" maxlength="200">
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary">Přidat položku</button>
+        </form>
+      </div>
+
+      <div class="admin-section">
+        <h2>📁 Přidat kategorii</h2>
+        <form id="addCategoryForm">
+          <div class="form-row">
+            <label>
+              Název kategorie:
+              <input type="text" id="novaKategorie" placeholder="např. Nápoje" required maxlength="50">
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary">Vytvořit kategorii</button>
+        </form>
+      </div>
+
+      <div class="admin-section">
+        <h2>📋 Aktuální menu</h2>
+        <table class="menu-table">
+          <thead>
+            <tr>
+              <th>Název</th>
+              <th>Popis</th>
+              <th>Cena</th>
+              <th>Akce</th>
+            </tr>
+          </thead>
+          <tbody id="menuTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB: AKTUALITY -->
+    <div id="tab-aktuality" class="tab-content">
+      <div class="admin-section">
+        <h2>➕ Přidat aktualitu</h2>
+        <form id="addAktualitaForm">
+          <div class="form-row">
+            <label>
+              Titulek:
+              <input type="text" id="akt-titulek" placeholder="např. Nová letní nabídka!" required maxlength="150">
+            </label>
+            <label>
+              Datum:
+              <input type="date" id="akt-datum">
+            </label>
+          </div>
+          <div class="form-row full">
+            <label>
+              Text:
+              <textarea id="akt-text" placeholder="Obsah aktuality..." required maxlength="2000"></textarea>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary">Publikovat aktualitu</button>
+        </form>
+      </div>
+
+      <div class="admin-section">
+        <h2>📋 Publikované aktuality</h2>
+        <div id="aktualityList"></div>
+      </div>
+    </div>
+
+    <!-- TAB: NASTAVENÍ -->
+    <div id="tab-nastaveni" class="tab-content">
+      <div class="admin-section">
+        <h2>🔐 Změna hesla</h2>
+        <form id="changePasswordForm">
+          <div class="form-row">
+            <label>
+              Současné heslo:
+              <input type="password" id="currentPassword" required autocomplete="current-password">
+            </label>
+          </div>
+          <div class="form-row">
+            <label>
+              Nové heslo:
+              <input type="password" id="newPassword" required minlength="8" autocomplete="new-password">
+              <small style="color: #888;">Min. 8 znaků, velké písmeno a číslo</small>
+            </label>
+          </div>
+          <div class="form-row">
+            <label>
+              Potvrdit nové heslo:
+              <input type="password" id="confirmPassword" required autocomplete="new-password">
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary">Změnit heslo</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ===================
+    // KONFIGURACE
+    // ===================
+    const API_URL = 'http://localhost:3000/api';
+    let csrfToken = '';
+
+    // ===================
+    // AUTH
+    // ===================
+    
+    async function checkAuth() {
+      try {
+        const response = await fetch(`${API_URL}/auth/status`, {
+          credentials: 'include'
+        });
+        const data = await response.json();
+        
+        if (!data.loggedIn) {
+          window.location.href = 'login.html';
+          return false;
+        }
+        
+        csrfToken = data.csrfToken;
+        document.getElementById('userInfo').textContent = `👤 ${data.user.username}`;
+        document.getElementById('loadingOverlay').classList.add('hidden');
+        return true;
+      } catch (error) {
+        console.error('Auth error:', error);
+        window.location.href = 'login.html';
+        return false;
+      }
+    }
+
+    async function logout() {
+      try {
+        await fetch(`${API_URL}/auth/logout`, {
+          method: 'POST',
+          credentials: 'include'
+        });
+      } catch (error) {
+        console.error('Logout error:', error);
+      }
+      window.location.href = 'login.html';
+    }
+
+    // ===================
+    // POMOCNÉ FUNKCE
+    // ===================
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+    }
+    
+    function showMessage(text, type = 'success') {
+      const msgEl = document.getElementById('message');
+      msgEl.textContent = text;
+      msgEl.className = `message ${type}`;
+      setTimeout(() => { msgEl.className = 'message'; }, 4000);
+    }
+
+    function formatDatum(dateString) {
+      return new Date(dateString).toLocaleDateString('cs-CZ', {
+        day: 'numeric', month: 'long', year: 'numeric'
+      });
+    }
+
+    /**
+     * Bezpečný fetch s CSRF tokenem
+     */
+    async function secureFetch(url, options = {}) {
+      const defaultOptions = {
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
+        }
+      };
+      
+      const mergedOptions = {
+        ...defaultOptions,
+        ...options,
+        headers: { ...defaultOptions.headers, ...options.headers }
+      };
+      
+      return fetch(url, mergedOptions);
+    }
+
+    // ===================
+    // MENU
+    // ===================
+
+    async function loadMenu() {
+      try {
+        const response = await fetch(`${API_URL}/menu`);
+        const menu = await response.json();
+        
+        const kategorieSelect = document.getElementById('kategorie');
+        kategorieSelect.innerHTML = menu.map(cat => 
+          `<option value="${cat.kategorie}">${cat.kategorie}</option>`
+        ).join('');
+        
+        const tbody = document.getElementById('menuTableBody');
+        tbody.innerHTML = '';
+        
+        menu.forEach(category => {
+          const catRow = document.createElement('tr');
+          catRow.className = 'kategorie-header';
+          catRow.innerHTML = `<td colspan="4">${category.kategorie}</td>`;
+          tbody.appendChild(catRow);
+          
+          category.polozky.forEach(item => {
+            const row = document.createElement('tr');
+            // Escapování pro bezpečné vložení do onclick
+            const safeKategorie = category.kategorie.replace(/'/g, "\\'");
+            const safeNazev = item.nazev.replace(/'/g, "\\'");
+            row.innerHTML = `
+              <td>${item.nazev}</td>
+              <td>${item.popis || '-'}</td>
+              <td>${item.cena}</td>
+              <td class="akce-btns">
+                <button class="btn btn-danger" onclick="deleteItem('${safeKategorie}', '${safeNazev}')">Smazat</button>
+              </td>
+            `;
+            tbody.appendChild(row);
+          });
+        });
+      } catch (error) {
+        console.error('Menu error:', error);
+        showMessage('Chyba při načítání menu', 'error');
+      }
+    }
+
+    async function addItem(event) {
+      event.preventDefault();
+      
+      const data = {
+        kategorie: document.getElementById('kategorie').value,
+        nazev: document.getElementById('nazev').value.trim(),
+        cena: document.getElementById('cena').value.trim(),
+        popis: document.getElementById('popis').value.trim() || undefined
+      };
+      
+      try {
+        const response = await secureFetch(`${API_URL}/menu/polozka`, {
+          method: 'POST',
+          body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          showMessage(`Položka "${data.nazev}" přidána!`);
+          document.getElementById('addItemForm').reset();
+          loadMenu();
+        } else {
+          showMessage(result.error, 'error');
+        }
+      } catch (error) {
+        showMessage('Chyba při přidávání', 'error');
+      }
+    }
+
+    async function deleteItem(kategorie, nazev) {
+      if (!confirm(`Opravdu smazat "${nazev}"?`)) return;
+      
+      try {
+        const response = await secureFetch(`${API_URL}/menu/polozka`, {
+          method: 'DELETE',
+          body: JSON.stringify({ kategorie, nazev })
+        });
+        
+        if (response.ok) {
+          showMessage(`Položka smazána`);
+          loadMenu();
+        } else {
+          const result = await response.json();
+          showMessage(result.error, 'error');
+        }
+      } catch (error) {
+        showMessage('Chyba při mazání', 'error');
+      }
+    }
+
+    async function addCategory(event) {
+      event.preventDefault();
+      
+      const nazev = document.getElementById('novaKategorie').value.trim();
+      
+      try {
+        const response = await secureFetch(`${API_URL}/menu/kategorie`, {
+          method: 'POST',
+          body: JSON.stringify({ nazev })
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          showMessage(`Kategorie "${nazev}" vytvořena!`);
+          document.getElementById('addCategoryForm').reset();
+          loadMenu();
+        } else {
+          showMessage(result.error, 'error');
+        }
+      } catch (error) {
+        showMessage('Chyba při vytváření kategorie', 'error');
+      }
+    }
+
+    // ===================
+    // AKTUALITY
+    // ===================
+
+    async function loadAktuality() {
+      try {
+        const response = await fetch(`${API_URL}/aktuality`);
+        const aktuality = await response.json();
+        
+        const container = document.getElementById('aktualityList');
+        
+        if (aktuality.length === 0) {
+          container.innerHTML = '<p style="color: #888; text-align: center;">Žádné aktuality.</p>';
+          return;
+        }
+        
+        container.innerHTML = aktuality.map(akt => `
+          <div class="aktualita-admin-card">
+            <h4>${akt.titulek}</h4>
+            <div class="datum">${formatDatum(akt.datum)}</div>
+            <p>${akt.text}</p>
+            <div class="akce-btns">
+              <button class="btn btn-edit" onclick="editAktualita(${akt.id})">Upravit</button>
+              <button class="btn btn-danger" onclick="deleteAktualita(${akt.id})">Smazat</button>
+            </div>
+          </div>
+        `).join('');
+      } catch (error) {
+        console.error('Aktuality error:', error);
+        showMessage('Chyba při načítání aktualit', 'error');
+      }
+    }
+
+    async function addAktualita(event) {
+      event.preventDefault();
+      
+      const data = {
+        titulek: document.getElementById('akt-titulek').value.trim(),
+        text: document.getElementById('akt-text').value.trim(),
+        datum: document.getElementById('akt-datum').value || undefined
+      };
+      
+      try {
+        const response = await secureFetch(`${API_URL}/aktuality`, {
+          method: 'POST',
+          body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          showMessage(`Aktualita publikována!`);
+          document.getElementById('addAktualitaForm').reset();
+          loadAktuality();
+        } else {
+          showMessage(result.error, 'error');
+        }
+      } catch (error) {
+        showMessage('Chyba při publikování', 'error');
+      }
+    }
+
+    async function deleteAktualita(id) {
+      if (!confirm('Opravdu smazat tuto aktualitu?')) return;
+      
+      try {
+        const response = await secureFetch(`${API_URL}/aktuality/${id}`, {
+          method: 'DELETE'
+        });
+        
+        if (response.ok) {
+          showMessage('Aktualita smazána');
+          loadAktuality();
+        } else {
+          const result = await response.json();
+          showMessage(result.error, 'error');
+        }
+      } catch (error) {
+        showMessage('Chyba při mazání', 'error');
+      }
+    }
+
+    async function editAktualita(id) {
+      try {
+        const response = await fetch(`${API_URL}/aktuality/${id}`);
+        const akt = await response.json();
+        
+        const novyTitulek = prompt('Titulek:', akt.titulek);
+        if (novyTitulek === null) return;
+        
+        const novyText = prompt('Text:', akt.text);
+        if (novyText === null) return;
+        
+        const updateResponse = await secureFetch(`${API_URL}/aktuality/${id}`, {
+          method: 'PUT',
+          body: JSON.stringify({
+            titulek: novyTitulek,
+            text: novyText,
+            datum: akt.datum
+          })
+        });
+        
+        if (updateResponse.ok) {
+          showMessage('Aktualita aktualizována!');
+          loadAktuality();
+        } else {
+          const result = await updateResponse.json();
+          showMessage(result.error, 'error');
+        }
+      } catch (error) {
+        showMessage('Chyba při editaci', 'error');
+      }
+    }
+
+    // ===================
+    // ZMĚNA HESLA
+    // ===================
+
+    async function changePassword(event) {
+      event.preventDefault();
+      
+      const currentPassword = document.getElementById('currentPassword').value;
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      if (newPassword !== confirmPassword) {
+        showMessage('Hesla se neshodují', 'error');
+        return;
+      }
+      
+      try {
+        const response = await secureFetch(`${API_URL}/auth/change-password`, {
+          method: 'POST',
+          body: JSON.stringify({ currentPassword, newPassword })
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          showMessage('Heslo změněno!');
+          document.getElementById('changePasswordForm').reset();
+        } else {
+          showMessage(result.error, 'error');
+        }
+      } catch (error) {
+        showMessage('Chyba při změně hesla', 'error');
+      }
+    }
+
+    // ===================
+    // EVENT LISTENERS
+    // ===================
+    document.getElementById('addItemForm').addEventListener('submit', addItem);
+    document.getElementById('addCategoryForm').addEventListener('submit', addCategory);
+    document.getElementById('addAktualitaForm').addEventListener('submit', addAktualita);
+    document.getElementById('changePasswordForm').addEventListener('submit', changePassword);
+
+    // ===================
+    // INICIALIZACE
+    // ===================
+    async function init() {
+      const isAuth = await checkAuth();
+      if (isAuth) {
+        loadMenu();
+        loadAktuality();
+      }
+    }
+
+    init();
+  </script>
+
+</body>
+</html>

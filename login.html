@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Přihlášení - Kavárna Limone Admin</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #FFFDF6 0%, #FFD966 100%);
+      padding: 20px;
+    }
+
+    .login-box {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-box h1 {
+      text-align: center;
+      color: #5C3D2E;
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+    }
+
+    .login-box .subtitle {
+      text-align: center;
+      color: #888;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #5C3D2E;
+      font-weight: 600;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #eee;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: #FFD966;
+      outline: none;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: #5C3D2E;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-login:hover {
+      background: #996c5a;
+    }
+
+    .btn-login:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .message {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .message.error {
+      background: #f8d7da;
+      color: #721c24;
+      display: block;
+    }
+
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      display: block;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #5C3D2E;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <div class="logo">🍋</div>
+      <h1>Admin Panel</h1>
+      <p class="subtitle">Kavárna Limone</p>
+
+      <div id="message" class="message"></div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Uživatelské jméno</label>
+          <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            autocomplete="username"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password">Heslo</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <button type="submit" class="btn-login" id="submitBtn">
+          Přihlásit se
+        </button>
+      </form>
+
+      <a href="index.html" class="back-link">← Zpět na web</a>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:3000/api';
+
+    // Zkontroluj, jestli už je uživatel přihlášen
+    async function checkAuth() {
+      try {
+        const response = await fetch(`${API_URL}/auth/status`, {
+          credentials: 'include'
+        });
+        const data = await response.json();
+        
+        if (data.loggedIn) {
+          // Už je přihlášen, přesměruj na admin
+          window.location.href = 'admin.html';
+        }
+      } catch (error) {
+        console.error('Chyba při kontrole přihlášení:', error);
+      }
+    }
+
+    function showMessage(text, type = 'error') {
+      const msgEl = document.getElementById('message');
+      msgEl.textContent = text;
+      msgEl.className = `message ${type}`;
+    }
+
+    async function handleLogin(event) {
+      event.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Přihlašování...';
+      
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      
+      try {
+        const response = await fetch(`${API_URL}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ username, password })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          showMessage('Přihlášení úspěšné! Přesměrování...', 'success');
+          
+          // Ulož CSRF token
+          sessionStorage.setItem('csrfToken', data.csrfToken);
+          
+          // Přesměruj na admin
+          setTimeout(() => {
+            window.location.href = 'admin.html';
+          }, 500);
+        } else {
+          showMessage(data.error || 'Chyba při přihlašování');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Přihlásit se';
+        }
+      } catch (error) {
+        showMessage('Nepodařilo se připojit k serveru');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Přihlásit se';
+      }
+    }
+
+    // Event listeners
+    document.getElementById('loginForm').addEventListener('submit', handleLogin);
+    
+    // Zkontroluj přihlášení při načtení
+    checkAuth();
+  </script>
+</body>
+</html>
